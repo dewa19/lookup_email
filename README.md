@@ -2,7 +2,7 @@
 
 **LookEmail** is a GenServer-based SMTP email look-up application. The GenServer process run on its own without Supervisor.
 
-The objective of this project is to validate an email address from the side of SMTP server (without really sending an email). If an email is acknowledged by its SMTP server, then it is an "valid" email.
+The objective of this project is to validate an email address from the side of SMTP server, without really sending a message to given email. If -by sending a series of SMTP commands- an email is acknowledged by its SMTP server, then it is an "valid" email.
 
 In SMTP protocol, there is a special command to establish a recipient of the message, ie: RCPT TO:\<email@example.com\>. If the response code of that command is like "250 OK" then the specified email is a valid one. Otherwise, it might be an invalid email (for any reason).
 
