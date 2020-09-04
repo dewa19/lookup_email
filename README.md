@@ -12,6 +12,7 @@ With that mechanism, we wan make an "educated guess" about the status of an emai
 
 After clone this application, you can start right away. Don't forget to start GenServer first by calling ```LookupEmail.start_link```.
 
+```
   <your_machine/lookup_email>$ iex -S mix
   Erlang/OTP 23 [erts-11.0.2] [source] [64-bit] [smp:8:8] [ds:8:8:10] [async-threads:1] [hipe]
 
