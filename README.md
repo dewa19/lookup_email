@@ -29,6 +29,9 @@ After clone this application, you can start right away. Don't forget to start Ge
   send_smtp_command_RCPT_TO_to_mx_server : 250 2.1.0 Ok
 
   {"inquiry@sky-energy.co.id", :exist}
-  iex(3)>
+  iex(3)> LookupEmail.stop
+  Terminate GenServer : normal
+  :ok
+  iex(4)>
   ```
 That's it! The final result would be tuple of a pair of email and its status.
