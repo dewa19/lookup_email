@@ -1,6 +1,6 @@
 # LookupEmail
 
-**LookEmail** GenServer-based SMTP email look-up application. The GenServer process run on its own without Supervisor.
+**LookEmail** is a GenServer-based SMTP email look-up application. The GenServer process run on its own without Supervisor.
 
 The objective of this project is to validate an email address from the side of SMTP server (without really sending an email). If an email is acknowledged by its SMTP server, then it is an "valid" email.
 
@@ -10,7 +10,7 @@ With that mechanism, we wan make an "educated guess" about the status of an emai
 
 ## Installing
 
-After clone this application, you can start right away. Don't forget to start GenServer first by calling ```LookupEmail.start_link```.
+After clone this application, you can start right away. Don't forget to start GenServer first by calling ```LookupEmail.start_link()```.
 
 ```
   <your_machine/lookup_email>$ iex -S mix
@@ -29,9 +29,12 @@ After clone this application, you can start right away. Don't forget to start Ge
   send_smtp_command_RCPT_TO_to_mx_server : 250 2.1.0 Ok
 
   {"inquiry@sky-energy.co.id", :exist}
-  iex(3)> LookupEmail.stop
+  iex(3)> LookupEmail.stop()
   Terminate GenServer : normal
   :ok
   iex(4)>
   ```
 That's it! The final result would be tuple of a pair of email and its status.
+
+**Note**:
+When application can't verify the domain name of an email, it just throws an "exit" signal, quit the application, and appear as an error. This should be a task for Supervisor to trap this kind of termination signal (for any kind reason).
