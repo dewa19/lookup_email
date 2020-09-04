@@ -36,5 +36,6 @@ After clone this application, you can start right away. Don't forget to start Ge
   ```
 That's it! The final result would be tuple of a pair of email and its status.
 
-**Note**:
+**Note :**
+
 When application can't verify the domain name of an email, it just throws an "exit" signal, quit the application, and appear as an error. This should be a task for Supervisor to trap this kind of termination signal (for any kind reason).
