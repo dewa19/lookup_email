@@ -56,9 +56,9 @@ defmodule LookupEmail.Helper do
 
   end
 
-  def send_smtp_command_MAIL_FROM_to_mx_server(socket) do
+  def send_smtp_command_MAIL_FROM_to_mx_server(socket,email) do
 
-    :ok = :gen_tcp.send(socket, "MAIL FROM:<dewa19@gmail.com> \r \n")
+    :ok = :gen_tcp.send(socket, "MAIL FROM:<#{email}> \r \n")
     tcp_recv_respons = :gen_tcp.recv(socket, 0)
 
     case  tcp_recv_respons do
