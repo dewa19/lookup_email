@@ -33,11 +33,11 @@ defmodule LookupEmail do
         |> Helper.get_mx_server_of_this_email()
         |> Helper.open_connection_to_mx_server()
         |> Helper.send_smtp_command_HELO_HI_to_mx_server()
-        |> Helper.send_smtp_command_MAIL_FROM_to_mx_server()
+        |> Helper.send_smtp_command_MAIL_FROM_to_mx_server(email)
         |> Helper.send_smtp_command_RCPT_TO_to_mx_server(email)
 
         {:reply, {email, email_status}, _stats}
-  end  
+  end
 
   def handle_info(msg, _stats) do
     IO.puts("received #{inspect(msg)}")
