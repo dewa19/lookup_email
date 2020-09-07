@@ -39,3 +39,27 @@ That's it! The final result would be tuple of a pair of email and its status.
 **Note :**
 
 When application can't verify the domain name of an email, it just throws an "exit" signal, quit the application, and appear as an error. This should be a task for Supervisor to trap this kind of termination signal (for any kind reason).
+
+**Update :**
+1. Add Supervisor module to monitor Worker.
+2. One Supervisor **only** supervise/monitor one Worker of the same kind/module.
+3. Add Application main module for LookupEmail, and load it on start up.
+4. Activate Logger in :debug mode to provide information in sequence every time an event occurred.
+
+Example of Logger :
+```
+  14:55:49.656 [info]  Application logger started at :nonode@nohost
+  14:55:49.658 [info]  Elixir.LookupEmail: Application start...
+  14:55:49.658 [info]  Elixir.LookupEmail.Supervisor: Supervisor start_link()
+  14:55:49.660 [info]  Elixir.LookupEmail.Worker: Worker start_link()
+  14:55:49.663 [info]  Child LookupEmail.Worker of Supervisor LookupEmail.Supervisor started
+  Pid: #PID<0.168.0>
+  Start Call: LookupEmail.Worker.start_link()
+  Restart: :transient
+  Shutdown: 5000
+  Type: :worker
+
+  14:55:49.663 [info]  Application lookup_email started at :nonode@nohost
+  Interactive Elixir (1.10.3) - press Ctrl+C to exit (type h() ENTER for help)
+  iex(1)>
+```

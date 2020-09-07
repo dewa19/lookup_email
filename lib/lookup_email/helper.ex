@@ -1,10 +1,58 @@
 defmodule LookupEmail.Helper do
 
+  # without "/" at the end
+  @log_file_folder "log"
+
+  # write info to log file
+  def write_result_log(str_logs) do
+    datetime = get_datetime_now()
+    date_tag = get_current_yymmdd()
+
+    result = File.write("#{@log_file_folder}/lookupemail_#{date_tag}.log", "\n" <> datetime <> " | " <> str_logs,[:append])
+
+    case result do
+      {:error, reason} ->
+        raise "Error write log file : #{reason}"
+      :ok ->
+        :ok
+    end
+
+  end
+
+  # get current year, month, date in format YYYYMMDD
+  defp get_current_yymmdd() do
+    {{year, month, day}, _ } = :calendar.local_time()
+    date =
+      ["#{year}", "#{month}", "#{day}"]
+      |> Enum.map(fn x -> String.pad_leading(x, 2, "0") end)
+
+      [yy, mm, dd] = date
+      yymmdd = yy <> mm <> dd
+
+      yymmdd
+  end
+
+  # get current year, month, date, hour. minute, second in format YYYY-MM-DD:HH-MI-SS as a prefix to all info writen into log file
+  defp get_datetime_now() do
+    {{year, month, day}, {hour, minute, second}} = :calendar.local_time()
+
+    datetime =
+      ["#{year}", "#{month}", "#{day}", "#{hour}", "#{minute}", "#{second}"]
+      |> Enum.map(fn x -> String.pad_leading(x, 2, "0") end)
+
+    [year, month, date, hour, minute, second] = datetime
+
+    full_date_time = year <> "-" <> month <> "-" <> date <> ":" <> hour <> "-" <> minute <> "-" <> second
+    #full_date_time = DateTime.utc_now() |> DateTime.truncate(:microsecond) |> NaiveDateTime.to_string
+
+    full_date_time
+  end
+
   def get_mx_server_of_this_email(email) do
     # fetch domain part of the email
     mx = String.split(email, "@") |> Enum.at(1)
     # extract MX server part, from nslookup response (eg : nslook -q=mx gmail.com)
-    {response, code} = System.cmd("nslookup", ["-q=mx", "#{mx}"])
+    {response, code} = System.cmd("nslookup", ["-q=mx", "#{mx}"], [stderr_to_stdout: true])
 
     # 0 = mx exist, 1 = mx not exist
     case {response, code} do
@@ -20,7 +68,7 @@ defmodule LookupEmail.Helper do
         |> Map.fetch!(:path)
 
       {response, 1} ->
-        exit "Error nslookup: #{response}"
+        Process.exit(self(), "Error nslookup: #{inspect(response)}")
     end
 
   end
