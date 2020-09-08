@@ -48,6 +48,7 @@ defmodule LookupEmail.Helper do
     full_date_time
   end
 
+  @spec get_mx_server_of_this_email(String.t()) :: String.t()
   def get_mx_server_of_this_email(email) do
     # fetch domain part of the email
     mx = String.split(email, "@") |> Enum.at(1)

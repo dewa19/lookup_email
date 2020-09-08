@@ -1,7 +1,7 @@
 defmodule LookupEmail.Supervisor do
   @moduledoc """
     LookupEmail.Supervisor supervise LookupEmail.Worker,
-    ONE Supervisor *ONLY* supervise ONE Worker.
+    ONE Supervisor *ONLY* supervise ONE Worker of the same module/kind(?).
   """
   use Supervisor
   require Logger
