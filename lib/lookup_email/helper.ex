@@ -8,7 +8,7 @@ defmodule LookupEmail.Helper do
     datetime = get_datetime_now()
     date_tag = get_current_yymmdd()
 
-    result = File.write("#{@log_file_folder}/lookupemail_#{date_tag}.log", "\n" <> datetime <> " | " <> str_logs,[:append])
+    result = File.write("#{@log_file_folder}/LookupEmail_#{date_tag}.log", "\n" <> datetime <> " | " <> str_logs,[:append])
 
     case result do
       {:error, reason} ->

@@ -37,7 +37,6 @@ defmodule LookupEmail.Worker do
   end
 
   def handle_call({:email, email}, _from, _stats) do
-    Helper.write_result_log("START check email : #{email}")
     email_status =
         email
         |> Helper.get_mx_server_of_this_email()
@@ -46,7 +45,7 @@ defmodule LookupEmail.Worker do
         |> Helper.send_smtp_command_MAIL_FROM_to_mx_server(email)
         |> Helper.send_smtp_command_RCPT_TO_to_mx_server(email)
 
-    Helper.write_result_log("END check email : #{email} #{email_status}")
+    Helper.write_result_log("Check result | #{email} | #{email_status}")
 
     {:reply, {email, email_status}, _stats}
   end
