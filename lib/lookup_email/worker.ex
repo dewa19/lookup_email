@@ -4,11 +4,10 @@ defmodule LookupEmail.Worker do
     This module contain function that do the real work, ie: LookupEmail.Worker.check_email
   """
 
-  alias LookupEmail.Helper, as: Helper
   use GenServer
   @name __MODULE__
 
-  alias LookupEmail.Helper
+  alias LookupEmail.Helper, as: Helper
   require Logger
 
   ## Client API (start_link, check_email, stop)
@@ -45,7 +44,7 @@ defmodule LookupEmail.Worker do
         |> Helper.send_smtp_command_MAIL_FROM_to_mx_server(email)
         |> Helper.send_smtp_command_RCPT_TO_to_mx_server(email)
 
-    Helper.write_result_log("Check result | #{email} | #{email_status}")
+    Helper.write_result_log("#{email} | #{email_status}")
 
     {:reply, {email, email_status}, _stats}
   end

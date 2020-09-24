@@ -11,9 +11,9 @@ defmodule LookupEmail.Supervisor do
   @doc """
     Start the Supervisor
   """
-  def start_link() do
+  def start_link(args) do
     Logger.info("#{__MODULE__}: Supervisor start_link()")
-    Supervisor.start_link(__MODULE__, [], name: __MODULE__)
+    Supervisor.start_link(__MODULE__, args, name: __MODULE__)
   end
 
   def stop do

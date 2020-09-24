@@ -4,7 +4,7 @@ defmodule LookupEmail do
 
   def start(_type, _arg) do
     Logger.info("#{__MODULE__}: Application start...")
-    LookupEmail.Supervisor.start_link()
+    LookupEmail.Supervisor.start_link([])
   end
 
 end
